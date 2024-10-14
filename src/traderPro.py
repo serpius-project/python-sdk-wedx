@@ -184,6 +184,49 @@ def deposit_eth(chain_id, user_id, eth_amount):
         return True
 
 
+def withdraw_eth(chain_id, user_id, perc_amount):
+    pro_account_address = get_trading_account_address(chain_id, user_id)
+    if pro_account_address == zero_address:
+        raise ValueError("User does not have an account")
+    else:
+        chain_rpc = get_chain_rpc(chain_id)
+        if not chain_rpc:
+            raise ValueError(f"Unsupported chain ID: {chain_id}")
+
+        w3 = Web3(Web3.HTTPProvider(chain_rpc))
+        if not w3.is_connected():
+            raise ConnectionError("Failed to connect to the network")
+
+        pro_contract = w3.eth.contract(address=pro_account_address, abi=network[get_chain_name(chain_id)]['abiWEDXPro'])
+        pro_contract_function = getattr(pro_contract.functions, "withdraw")
+
+        # Get the account from the private key
+        account = Account.from_key(user_private_key)
+
+        # Estimate gas
+        gas_estimate = pro_contract_function(perc_amount).estimate_gas({'from': account.address})
+
+        # Prepare the transaction
+        transaction = pro_contract_function(perc_amount).build_transaction({
+            'chainId': chain_id,
+            'gas': int(gas_estimate * 1.2),  # Add 20% buffer to gas estimate
+            'gasPrice': w3.eth.gas_price,
+            'nonce': w3.eth.get_transaction_count(account.address)
+        })
+
+        # Sign the transaction
+        signed_txn = account.sign_transaction(transaction)
+
+        # Send the transaction
+        tx_hash = w3.eth.send_raw_transaction(signed_txn.rawTransaction)
+
+        # Wait for the transaction receipt
+        tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+        print("Transaction hash: ", tx_receipt['transactionHash'].hex())
+
+        return True
+    
+
 def get_assets_info(chain_id):
     chain_name = get_chain_name(chain_id)
     url = 'https://app.wedefin.com/exchange_data.json'
@@ -246,7 +289,8 @@ def create_ew_portfolio(chain_id):
 
 def main():
 
-    chain = 42161
+#    chain = 42161
+    chain = 8453
 
     print("User address: ", user_address)
     print("Current ETH balance: ", get_eth_balance(chain, user_address) )
@@ -257,16 +301,17 @@ def main():
     trading_account_address = get_trading_account_address(chain_id=chain, user_id=user_address)
     print( "User account: ", trading_account_address )
 
-    if trading_account_address == zero_address:
-        print( "User does not have an account yet" )
+    # if trading_account_address == zero_address:
+    #     print( "User does not have an account yet" )
 
-        trading_account_address = create_trading_account_address(chain_id=chain, user_id=user_address)
-        print( "User account: ", trading_account_address )
+    #     trading_account_address = create_trading_account_address(chain_id=chain, user_id=user_address)
+    #     print( "User account: ", trading_account_address )
 
 #    deposit_eth(chain_id=chain, user_id=user_address, eth_amount=0.01)
+#    withdraw_eth(chain_id=chain, user_id=user_address, perc_amount=1000000)
 
-    assets, portfolio = create_ew_portfolio(chain_id=chain) 
-    print(assets, portfolio)
+#    assets, portfolio = create_ew_portfolio(chain_id=chain) 
+#    print(assets, portfolio)
 
 
 if __name__ == "__main__":
