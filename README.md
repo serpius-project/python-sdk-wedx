@@ -29,10 +29,13 @@ The WEDX SDK is a Python library that allows users to interact with the WEDX sma
 ## Configuration
 
 1. Create a `.env` file in the root directory of the project.
-2. Add your Ethereum address and private key to the `.env` file:
+2. Add your Ethereum address, private key, and RPC urls to the `.env` file:
    ```
    USER_ADDRESS=your_ethereum_address
    USER_PRIVATE_KEY=your_private_key
+
+   RPC_BASE = ""
+   RPC_ARBITRUM = ""
    ```
 
 If you don't have an Ethereum wallet, you can use the provided `createUser.py` script in the `examples` folder to create one:
@@ -59,8 +62,8 @@ USER_PRIVATE_KEY = os.getenv('USER_PRIVATE_KEY')
 
 # RPC nodes url. Replace them with yours if preferred
 CHAIN_RPCS = {
-    8453: "https://mainnet.base.org",  # Base mainnet
-    42161: "https://arbitrum.llamarpc.com",  # Arbitrum One mainnet
+    8453: os.getenv('RPC_BASE'),  # Base mainnet
+    42161: os.getenv('RPC_ARBITRUM'),  # Arbitrum One mainnet
 }
 
 # Initialize the SDK
@@ -171,17 +174,6 @@ Feel free to modify this script or create new ones to experiment with different 
 
 - Base Mainnet (Chain ID: 8453)
 - Arbitrum One Mainnet (Chain ID: 42161)
-
-You can get the RPC URL for a specific chain using the following function:
-
-```python
-def get_chain_url(chain_id):
-    chain_urls = {
-        8453: "https://mainnet.base.org",  # Base mainnet
-        42161: "https://arbitrum.llamarpc.com",  # Arbitrum One mainnet
-    }
-    return chain_urls.get(chain_id, None)
-```
 
 ## Contributing
 
