@@ -117,9 +117,13 @@ class WedX:
         deployer_contract = self.w3.eth.contract(address=deployer_contract_address, abi=self.network[self.get_chain_name()]['abiWEDXDeployerPro'])
 
         account = Account.from_key(self.user_private_key)
+        
+        # Estimate gas
+        gas_estimate = deployer_contract.functions.createProPortfolio().estimate_gas({'from': account.address})
+
         tx = deployer_contract.functions.createProPortfolio().build_transaction({
             'chainId': self.chain_id,
-            'gas': 2000000,
+            'gas': int(gas_estimate * 1.2),  # Add 20% buffer to gas estimate
             'gasPrice': self.w3.eth.gas_price,
             'nonce': self.w3.eth.get_transaction_count(account.address),
         })
@@ -140,9 +144,12 @@ class WedX:
         account = Account.from_key(self.user_private_key)
         value_in_wei = self.w3.to_wei(eth_amount, 'ether')
 
+        # Estimate gas
+        gas_estimate = pro_contract.functions.deposit().estimate_gas({'from': account.address, 'value': value_in_wei})
+
         tx = pro_contract.functions.deposit().build_transaction({
             'chainId': self.chain_id,
-            'gas': 2000000,
+            'gas': int(gas_estimate * 1.2),  # Add 20% buffer to gas estimate
             'gasPrice': self.w3.eth.gas_price,
             'nonce': self.w3.eth.get_transaction_count(account.address),
             'value': value_in_wei
@@ -161,9 +168,12 @@ class WedX:
         pro_contract = self.w3.eth.contract(address=pro_account_address, abi=self.network[self.get_chain_name()]['abiWEDXPro'])
         account = Account.from_key(self.user_private_key)
 
+        # Estimate gas
+        gas_estimate = pro_contract.functions.withdraw(perc_amount).estimate_gas({'from': account.address})
+
         tx = pro_contract.functions.withdraw(perc_amount).build_transaction({
             'chainId': self.chain_id,
-            'gas': 2000000,
+            'gas': int(gas_estimate * 1.2),  # Add 20% buffer to gas estimate
             'gasPrice': self.w3.eth.gas_price,
             'nonce': self.w3.eth.get_transaction_count(account.address)
         })
@@ -191,9 +201,12 @@ class WedX:
         pro_contract = self.w3.eth.contract(address=pro_account_address, abi=self.network[self.get_chain_name()]['abiWEDXPro'])
         account = Account.from_key(self.user_private_key)
 
+        # Estimate gas
+        gas_estimate = pro_contract.functions.setPortfolio(assets, portfolio).estimate_gas({'from': account.address})
+
         tx = pro_contract.functions.setPortfolio(assets, portfolio).build_transaction({
             'chainId': self.chain_id,
-            'gas': 2000000,
+            'gas': int(gas_estimate * 1.2),  # Add 20% buffer to gas estimate
             'gasPrice': self.w3.eth.gas_price,
             'nonce': self.w3.eth.get_transaction_count(account.address)
         })
@@ -260,9 +273,13 @@ class WedX:
         account = Account.from_key(self.user_private_key)
 
         protocol_id = [0 for _ in range(len(assets))]
+        
+        # Estimate gas
+        gas_estimate = pro_contract.functions.supplyLendTokens(assets, protocol_id).estimate_gas({'from': account.address})
+
         tx = pro_contract.functions.supplyLendTokens(assets, protocol_id).build_transaction({
             'chainId': self.chain_id,
-            'gas': 2000000,
+            'gas': int(gas_estimate * 1.2),  # Add 20% buffer to gas estimate
             'gasPrice': self.w3.eth.gas_price,
             'nonce': self.w3.eth.get_transaction_count(account.address)
         })
@@ -280,9 +297,12 @@ class WedX:
         pro_contract = self.w3.eth.contract(address=pro_account_address, abi=self.network[self.get_chain_name()]['abiWEDXPro'])
         account = Account.from_key(self.user_private_key)
 
+        # Estimate gas
+        gas_estimate = pro_contract.functions.withdrawLendTokens(assets).estimate_gas({'from': account.address})
+
         tx = pro_contract.functions.withdrawLendTokens(assets).build_transaction({
             'chainId': self.chain_id,
-            'gas': 2000000,
+            'gas': int(gas_estimate * 1.2),  # Add 20% buffer to gas estimate
             'gasPrice': self.w3.eth.gas_price,
             'nonce': self.w3.eth.get_transaction_count(account.address)
         })
@@ -300,9 +320,12 @@ class WedX:
         pro_contract = self.w3.eth.contract(address=pro_account_address, abi=self.network[self.get_chain_name()]['abiWEDXPro'])
         account = Account.from_key(self.user_private_key)
 
+        # Estimate gas
+        gas_estimate = pro_contract.functions.rankMe().estimate_gas({'from': account.address})
+
         tx = pro_contract.functions.rankMe().build_transaction({
             'chainId': self.chain_id,
-            'gas': 2000000,
+            'gas': int(gas_estimate * 1.2),  # Add 20% buffer to gas estimate
             'gasPrice': self.w3.eth.gas_price,
             'nonce': self.w3.eth.get_transaction_count(account.address)
         })
