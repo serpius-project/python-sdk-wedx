@@ -14,8 +14,8 @@ USER_PRIVATE_KEY = os.getenv('USER_PRIVATE_KEY')
 
 #RPC nodes url. Replace them with yours if preferred
 CHAIN_RPCS = {
-    8453: "https://mainnet.base.org",  # Base mainnet
-    42161: "https://arbitrum.llamarpc.com",  # Arbitrum One mainnet
+    8453: os.getenv('RPC_BASE'),  # Base mainnet
+    42161: os.getenv('RPC_ARBITRUM'),  # Arbitrum One mainnet
 }
 
 # Initialize the SDK
