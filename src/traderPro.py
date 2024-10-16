@@ -31,6 +31,23 @@ def create_ew_portfolio():
     distribution = wedx.normalize_distribution(distribution)
     return assets_ew_portfolio_top_10_non_native, distribution
 
+def create_tvlw_portfolio():
+    assets_info = wedx.get_assets_info()
+    assets_ew_portfolio_top_10_non_native = list(assets_info.keys())[:10]
+
+    tvls = []
+    for asset in assets_ew_portfolio_top_10_non_native:
+        tvls.append(float(assets_info[asset]['totalValueLockedUSD']))
+
+    for a in range(len(assets_ew_portfolio_top_10_non_native)):
+        assets_ew_portfolio_top_10_non_native[a] = wedx.w3.to_checksum_address(assets_ew_portfolio_top_10_non_native[a])
+
+    distribution = [tvls[i] for i in range(len(assets_ew_portfolio_top_10_non_native))]
+    distribution.append(0.0)  # adding native allocation
+
+    distribution = wedx.normalize_distribution(distribution)
+    return assets_ew_portfolio_top_10_non_native, distribution
+
 #Example of using it:
 def main():
     print("User address:", USER_ADDRESS)
@@ -53,6 +70,9 @@ def main():
         current_distro = wedx.get_distribution()
         current_assets = wedx.get_assets_addresses()
         new_assets, new_distribution = create_ew_portfolio()
+
+        new_assets_tvl, new_distribution_tvl = create_tvlw_portfolio()
+        print(new_assets_tvl, new_distribution_tvl)
 
         native_asset = wedx.network[wedx.get_chain_name()]['wrap_address']
         new_assets_with_native = new_assets.copy()
