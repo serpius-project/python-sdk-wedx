@@ -73,6 +73,10 @@ class WedX:
         if len(distro1) != len(distro2) or len(addresses1) != len(addresses2):
             return True
         
+        for i in range(len(addresses1)):
+            addresses1[i] = addresses1[i].lower()
+            addresses2[i] = addresses2[i].lower()
+
         dict1 = dict(zip(addresses1, distro1))
         dict2 = dict(zip(addresses2, distro2))
         
