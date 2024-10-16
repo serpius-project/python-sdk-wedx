@@ -7,12 +7,13 @@ import requests
 import math
 
 class WedX:
-    def __init__(self, chain_id, user_address, user_private_key):
+    def __init__(self, chain_id, user_address, user_private_key, chain_rpcs):
         self.chain_id = chain_id
         self.user_address = user_address
         self.user_private_key = user_private_key
         self.zero_address = "0x0000000000000000000000000000000000000000"
         self.DISTRO_NORM = 10 ** 6
+        self.chain_rpc = chain_rpcs
 
         # Load network data
         with open('../network_data/network_data_v1.json') as f:
@@ -23,11 +24,7 @@ class WedX:
             raise ConnectionError("Failed to connect to the network")
 
     def get_chain_rpc(self):
-        chain_urls = {
-            8453: "https://mainnet.base.org",  # Base mainnet
-            42161: "https://arbitrum.llamarpc.com",  # Arbitrum One mainnet
-        }
-        return chain_urls.get(self.chain_id, None)
+        return self.chain_rpc.get(self.chain_id, None)
 
     def get_chain_name(self):
         chain_names = {

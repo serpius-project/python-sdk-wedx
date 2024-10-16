@@ -8,9 +8,15 @@ load_dotenv()
 USER_ADDRESS = os.getenv('USER_ADDRESS')
 USER_PRIVATE_KEY = os.getenv('USER_PRIVATE_KEY')
 
+#RPC nodes url. Replace them with yours if preferred
+CHAIN_RPCS = {
+    8453: "https://mainnet.base.org",  # Base mainnet
+    42161: "https://arbitrum.llamarpc.com",  # Arbitrum One mainnet
+}
+
 # Initialize the SDK
-CHAIN_ID = 8453  # Base mainnet, 42161 for Arbitrum
-wedx = WedX(CHAIN_ID, USER_ADDRESS, USER_PRIVATE_KEY)
+CHAIN_ID = 8453  # 8453 for Base mainnet, 42161 for Arbitrum
+wedx = WedX(CHAIN_ID, USER_ADDRESS, USER_PRIVATE_KEY, CHAIN_RPCS)
 
 def create_ew_portfolio():
     assets_info = wedx.get_assets_info()
@@ -40,6 +46,8 @@ def main():
         print("User does not have an account yet")
         trading_account_address = wedx.create_trading_account_address()
         print("User account:", trading_account_address)
+        if trading_account_address == wedx.zero_address:
+            raise('There was an error creating the new account')
 
     while True:
         current_distro = wedx.get_distribution()
