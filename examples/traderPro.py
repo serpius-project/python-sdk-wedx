@@ -1,6 +1,10 @@
 import os
+import sys
 import time
 from dotenv import load_dotenv
+
+# Add the src directory to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 from wedx import WedX
 
 # Load environment variables
