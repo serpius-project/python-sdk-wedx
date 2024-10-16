@@ -67,9 +67,25 @@ CHAIN_RPCS = {
 CHAIN_ID = 8453  # 8453 for Base mainnet, 42161 for Arbitrum
 wedx = WedX(CHAIN_ID, USER_ADDRESS, USER_PRIVATE_KEY, CHAIN_RPCS)
 
+# Get user's ETH balance
+eth_balance = wedx.get_eth_balance(USER_ADDRESS)
+print("Current ETH balance:", eth_balance)
+
 # Get user's trading account address
 trading_account_address = wedx.get_trading_account_address()
 print("Trading account address:", trading_account_address)
+
+# Create a trading account if it doesn't exist
+if trading_account_address == wedx.zero_address:
+    print("Creating new trading account...")
+    trading_account_address = wedx.create_trading_account_address()
+    print("New trading account:", trading_account_address)
+
+# Deposit ETH to the trading account
+# wedx.deposit_eth(0.1)  # Deposit 0.1 ETH
+
+# Withdraw ETH from the trading account
+# wedx.withdraw_eth(500000)  # Withdraw 50% of the balance (500000 = 50% * 10^6)
 
 # Get user's current score
 score = wedx.get_user_score()
