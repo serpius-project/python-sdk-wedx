@@ -1,7 +1,6 @@
 import json
 from web3 import Web3
 from eth_account import Account
-import os
 import time
 import requests
 import math
@@ -138,7 +137,7 @@ class WedX:
         signed_tx = account.sign_transaction(tx)
         tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
-        
+        print(f"Transaction hash: {tx_receipt}")
         time.sleep(1)
         return self.get_trading_account_address()
 
@@ -165,7 +164,8 @@ class WedX:
         signed_tx = account.sign_transaction(tx)
         tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
-        return True
+        print(f"Transaction hash: {tx_receipt}")
+        return tx_receipt
 
     def withdraw_eth(self, perc_amount):
         pro_account_address = self.get_trading_account_address()
@@ -188,7 +188,8 @@ class WedX:
         signed_tx = account.sign_transaction(tx)
         tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
-        return True
+        print(f"Transaction hash: {tx_receipt}")
+        return tx_receipt
 
     def get_assets_info(self):
         url = 'https://app.wedefin.com/exchange_data.json'
@@ -221,7 +222,8 @@ class WedX:
         signed_tx = account.sign_transaction(tx)
         tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
-        return True
+        print(f"Transaction hash: {tx_receipt}")
+        return tx_receipt
 
     def get_distribution(self):
         pro_account_address = self.get_trading_account_address()
@@ -294,7 +296,8 @@ class WedX:
         signed_tx = account.sign_transaction(tx)
         tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
-        return True
+        print(f"Transaction hash: {tx_receipt}")
+        return tx_receipt
 
     def withdraw_from_lending(self, assets):
         pro_account_address = self.get_trading_account_address()
@@ -317,7 +320,8 @@ class WedX:
         signed_tx = account.sign_transaction(tx)
         tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
-        return True
+        print(f"Transaction hash: {tx_receipt}")
+        return tx_receipt
 
     def rank_me(self):
         pro_account_address = self.get_trading_account_address()
@@ -340,4 +344,5 @@ class WedX:
         signed_tx = account.sign_transaction(tx)
         tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
-        return True
+        print(f"Transaction hash: {tx_receipt}")
+        return tx_receipt
