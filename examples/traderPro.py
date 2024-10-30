@@ -89,7 +89,7 @@ def main():
 
         if update:
             try:
-                wedx.withdraw_from_lending(new_assets)
+                wedx.withdraw_from_lending(current_assets)
                 wedx.set_portfolio(new_assets, new_distribution)
                 wedx.earn_with_lending(new_assets)
 
