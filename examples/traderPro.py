@@ -90,8 +90,11 @@ def main():
         if update:
             try:
                 wedx.withdraw_from_lending(current_assets)
+                time.sleep(2)
                 wedx.set_portfolio(new_assets, new_distribution)
+                time.sleep(2)
                 wedx.earn_with_lending(new_assets)
+                time.sleep(2)
 
                 trader_data = wedx.get_trader_data()
                 required_interactions = wedx.get_required_interactions()
