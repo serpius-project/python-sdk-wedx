@@ -306,11 +306,15 @@ class WedX:
 
         # Estimate gas
         gas_estimate = pro_contract.functions.withdrawLendTokens(assets).estimate_gas({'from': account.address})
+        base_fee = self.w3.eth.get_block('pending')['baseFeePerGas']
+        priority_fee = self.w3.eth.max_priority_fee
 
         tx = pro_contract.functions.withdrawLendTokens(assets).build_transaction({
             'chainId': self.chain_id,
             'gas': int(gas_estimate * 1.2),  # Add 20% buffer to gas estimate
-            'gasPrice': self.w3.eth.gas_price,
+#            'gasPrice': self.w3.eth.gas_price,
+            'maxFeePerGas': int( base_fee + priority_fee * 1.5 ),  # Increase total fee
+            'maxPriorityFeePerGas': int( priority_fee * 1.5 ),     # Increase priority fee
             'nonce': self.w3.eth.get_transaction_count(account.address)
         })
 
