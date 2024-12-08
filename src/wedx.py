@@ -71,7 +71,10 @@ class WedX:
     def are_distributions_different(self, distro1, addresses1, distro2, addresses2, threshold):
         if len(distro1) != len(distro2) or len(addresses1) != len(addresses2):
             return True
-        
+
+        addresses1 = addresses1.copy()
+        addresses2 = addresses2.copy()
+
         for i in range(len(addresses1)):
             addresses1[i] = addresses1[i].lower()
             addresses2[i] = addresses2[i].lower()
@@ -132,7 +135,7 @@ class WedX:
         })
 
         signed_tx = account.sign_transaction(tx)
-        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
         print(f"Transaction hash: {tx_receipt}")
         time.sleep(1)
@@ -159,7 +162,7 @@ class WedX:
         })
 
         signed_tx = account.sign_transaction(tx)
-        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
         print(f"Transaction hash: {tx_receipt}")
         return tx_receipt
@@ -183,7 +186,7 @@ class WedX:
         })
 
         signed_tx = account.sign_transaction(tx)
-        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
         print(f"Transaction hash: {tx_receipt}")
         return tx_receipt
@@ -217,7 +220,7 @@ class WedX:
         })
 
         signed_tx = account.sign_transaction(tx)
-        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
         print(f"Transaction hash: {tx_receipt}")
         return tx_receipt
@@ -291,7 +294,7 @@ class WedX:
         })
 
         signed_tx = account.sign_transaction(tx)
-        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
         print(f"Transaction hash: {tx_receipt}")
         return tx_receipt
@@ -315,7 +318,7 @@ class WedX:
         })
 
         signed_tx = account.sign_transaction(tx)
-        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
         print(f"Transaction hash: {tx_receipt}")
         return tx_receipt
@@ -339,7 +342,7 @@ class WedX:
         })
 
         signed_tx = account.sign_transaction(tx)
-        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
         print(f"Transaction hash: {tx_receipt}")
         return tx_receipt
