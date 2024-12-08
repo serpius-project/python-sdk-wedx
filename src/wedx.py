@@ -72,6 +72,9 @@ class WedX:
         if len(distro1) != len(distro2) or len(addresses1) != len(addresses2):
             return True
         
+        addresses1 = addresses1.copy()
+        addresses2 = addresses2.copy()
+
         for i in range(len(addresses1)):
             addresses1[i] = addresses1[i].lower()
             addresses2[i] = addresses2[i].lower()
