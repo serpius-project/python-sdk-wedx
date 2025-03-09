@@ -78,13 +78,6 @@ def main():
     trading_account_address = wedx.get_trading_account_address()
     print("User account:", trading_account_address)
 
-    w3 = Web3(Web3.HTTPProvider(CHAIN_RPCS[1]))
-    gas_price = w3.eth.gas_price
-    print(f"Gas price is {gas_price}, permitted max. {w3.to_wei(1.5, 'gwei')}")
-
-    if gas_price > w3.to_wei(1.5, 'gwei'):
-        exit()            
-
     if trading_account_address == wedx.zero_address:
         print("User does not have an account yet")
         trading_account_address = wedx.create_trading_account_address()
@@ -114,6 +107,12 @@ def main():
     trader_data = wedx.get_trader_data()
     required_interactions = wedx.get_required_interactions()
     print(f'Interactions: {len(trader_data[3])} / {required_interactions}')
+
+    w3 = Web3(Web3.HTTPProvider(CHAIN_RPCS[1]))
+    gas_price = w3.eth.gas_price
+    print(f"Gas price is {gas_price}, permitted max. {w3.to_wei(1.5, 'gwei')}")
+    if gas_price > w3.to_wei(1.5, 'gwei'):
+        update = False           
 
     if update:
         try:
