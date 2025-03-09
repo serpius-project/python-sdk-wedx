@@ -91,7 +91,7 @@ def main():
         print("User account:", trading_account_address)
         if trading_account_address == wedx.zero_address:
             raise('There was an error creating the new account')
-        wedx.deposit_eth(0.01)  # Deposit 0.01 ETH
+        wedx.deposit_eth(0.045)  # Deposit 0.01 ETH
 
     current_distro = wedx.get_distribution()
     current_assets = wedx.get_assets_addresses()
@@ -107,7 +107,7 @@ def main():
     print(new_distribution)
     print(new_assets_with_native)
 
-    change_threshold_allowance = wedx.get_distribution_threshold()
+    change_threshold_allowance = 2.5 * wedx.get_distribution_threshold()
 
     update = wedx.are_distributions_different(current_distro, current_assets, new_distribution, new_assets_with_native, change_threshold_allowance)
     print(f'Update needed: {update}')
