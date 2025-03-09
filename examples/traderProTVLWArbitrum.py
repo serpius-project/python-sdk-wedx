@@ -14,6 +14,7 @@ USER_PRIVATE_KEY = os.getenv('USER_PRIVATE_KEY_1')
 
 #RPC nodes url. Replace them with yours if preferred
 CHAIN_RPCS = {
+    1: os.getenv('RPC_ETHEREUM'), # Ethereum mainnet
     8453: os.getenv('RPC_BASE'),  # Base mainnet
     42161: os.getenv('RPC_ARBITRUM'),  # Arbitrum One mainnet
 }
