@@ -117,17 +117,7 @@ def main():
 
     if update:
         try:
-            wedx.withdraw_from_lending(current_assets)
-        except ValueError as error:
-            print(error)
-        time.sleep(60)
-        try:
             wedx.set_portfolio(new_assets, new_distribution)
-        except ValueError as error:
-            print(error)
-        time.sleep(60)
-        try:
-            wedx.earn_with_lending(new_assets)
         except ValueError as error:
             print(error)
         time.sleep(60)
