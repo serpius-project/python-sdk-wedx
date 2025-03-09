@@ -14,12 +14,13 @@ USER_PRIVATE_KEY = os.getenv('USER_PRIVATE_KEY')
 
 #RPC nodes url. Replace them with yours if preferred
 CHAIN_RPCS = {
+    1: os.getenv('RPC_ETHEREUM'),  # Mainnet    
     8453: os.getenv('RPC_BASE'),  # Base mainnet
     42161: os.getenv('RPC_ARBITRUM'),  # Arbitrum One mainnet
 }
 
 # Initialize the SDK
-CHAIN_ID = 8453  # 8453 for Base mainnet, 42161 for Arbitrum
+CHAIN_ID = 8453  # 8453 for Base mainnet, 42161 for Arbitrum, 1 for Ethereum
 wedx = WedX(CHAIN_ID, USER_ADDRESS, USER_PRIVATE_KEY, CHAIN_RPCS)
 
 def create_ew_portfolio():
