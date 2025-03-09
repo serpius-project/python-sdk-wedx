@@ -14,6 +14,7 @@ def create_wallet():
 
 def get_chain_url(chain_id):
     chain_urls = {
+        1: "https://mainnet.infura.io",  # Base mainnet
         8453: "https://mainnet.base.org",  # Base mainnet
         42161: "https://arbitrum.llamarpc.com",  # Arbitrum One mainnet
     }

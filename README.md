@@ -36,6 +36,7 @@ The WEDX SDK is a Python library that allows users to interact with the WEDX sma
 
    RPC_BASE = ""
    RPC_ARBITRUM = ""
+   RPC_ETHEREUM = ""
    ```
 
 If you don't have an Ethereum wallet, you can use the provided `createUser.py` script in the `examples` folder to create one:
@@ -62,12 +63,13 @@ USER_PRIVATE_KEY = os.getenv('USER_PRIVATE_KEY')
 
 # RPC nodes url. Replace them with yours if preferred
 CHAIN_RPCS = {
+    1: os.getenv('RPC_ETHEREUM'),  # Base mainnet
     8453: os.getenv('RPC_BASE'),  # Base mainnet
     42161: os.getenv('RPC_ARBITRUM'),  # Arbitrum One mainnet
 }
 
 # Initialize the SDK
-CHAIN_ID = 8453  # 8453 for Base mainnet, 42161 for Arbitrum
+CHAIN_ID = 8453  # 8453 for Base mainnet, 42161 for Arbitrum, 1 for Ethereum mainnet
 wedx = WedX(CHAIN_ID, USER_ADDRESS, USER_PRIVATE_KEY, CHAIN_RPCS)
 
 # Get user's ETH balance
@@ -172,6 +174,7 @@ Feel free to modify this script or create new ones to experiment with different 
 
 ## Supported Networks
 
+- Ethereum Mainnet (Chain ID: 1)
 - Base Mainnet (Chain ID: 8453)
 - Arbitrum One Mainnet (Chain ID: 42161)
 

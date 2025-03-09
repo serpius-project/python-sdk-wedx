@@ -27,6 +27,7 @@ class WedX:
 
     def get_chain_name(self):
         chain_names = {
+            1: "ethereum",  # Mainnet
             8453: "base",  # Base mainnet
             42161: "arbitrum",  # Arbitrum One mainnet
         }
