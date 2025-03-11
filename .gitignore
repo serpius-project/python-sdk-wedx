@@ -1,1 +1,4 @@
 .env
+/examples/daily_tvl_data_arbitrum.csv
+/examples/daily_tvl_data_base.csv
+/examples/daily_tvl_data_ethereum.csv
