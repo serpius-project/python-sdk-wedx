@@ -81,8 +81,6 @@ def main():
     required_interactions = wedx.get_required_interactions()
     print(f'Interactions: {len(trader_data[3])} / {required_interactions}')
 
-    wedx.withdraw_from_lending(current_assets)
-
     if update:
         # try:
         #     wedx.withdraw_from_lending(current_assets)
