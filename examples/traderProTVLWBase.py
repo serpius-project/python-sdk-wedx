@@ -28,9 +28,9 @@ def create_tvlw_portfolio():
     assets_ew_portfolio_top_10_non_native = []
     for key in assets_info.keys():
         if assets_info[key]['inputTokens'][0]['symbol'] == 'WETH':
-            asset = assets_info[key]['inputTokens'][1]['symbol']
+            asset = assets_info[key]['inputTokens'][1]['id']
         else:
-            asset = assets_info[key]['inputTokens'][0]['symbol']
+            asset = assets_info[key]['inputTokens'][0]['id']
         if assets_info[key]['gtScore'] >= 75.0:
             assets_ew_portfolio_top_10_non_native.append(asset)
         if len(assets_ew_portfolio_top_10_non_native) == 10:
