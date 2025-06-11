@@ -115,7 +115,7 @@ def main():
         update = False           
 
     print(f"My current slippage is {wedx.get_current_slippage()}")
-#    wedx.change_slippage(1000000)
+    wedx.change_slippage(20000)
 
     if update:
         try:
