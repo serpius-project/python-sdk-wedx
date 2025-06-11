@@ -347,3 +347,35 @@ class WedX:
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
         print(f"Transaction hash: {tx_receipt}")
         return tx_receipt
+    
+    def get_current_slippage(self):
+        pro_account_address = self.get_trading_account_address()
+        if pro_account_address == self.zero_address:
+            raise ValueError("User does not have an account")
+
+        pro_contract = self.w3.eth.contract(address=pro_account_address, abi=self.network[self.get_chain_name()]['abiWEDXPro'])
+        return pro_contract.functions.maxSlippage().call()
+
+    def change_slippage(self, new_value):
+        pro_account_address = self.get_trading_account_address()
+        if pro_account_address == self.zero_address:
+            raise ValueError("User does not have an account")
+
+        pro_contract = self.w3.eth.contract(address=pro_account_address, abi=self.network[self.get_chain_name()]['abiWEDXPro'])
+        account = Account.from_key(self.user_private_key)
+
+        # Estimate gas
+        gas_estimate = pro_contract.functions.changeMaxSlippage(new_value).estimate_gas({'from': account.address})
+
+        tx = pro_contract.functions.changeMaxSlippage(new_value).build_transaction({
+            'chainId': self.chain_id,
+            'gas': int(gas_estimate * 1.2),  # Add 20% buffer to gas estimate
+            'gasPrice': self.w3.eth.gas_price,
+            'nonce': self.w3.eth.get_transaction_count(account.address)
+        })
+
+        signed_tx = account.sign_transaction(tx)
+        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
+        tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
+        print(f"Transaction hash: {tx_receipt}")
+        return tx_receipt
