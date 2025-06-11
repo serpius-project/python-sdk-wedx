@@ -110,7 +110,7 @@ def main():
 
     w3 = Web3(Web3.HTTPProvider(CHAIN_RPCS[1]))
     gas_price = w3.eth.gas_price
-    print(f"Gas price is {gas_price}, permitted max. {w3.to_wei(1.5, 'gwei')}")
+    print(f"Gas price is {gas_price}, permitted max. {w3.to_wei(1.6, 'gwei')}")
     if gas_price > w3.to_wei(1.6, 'gwei'):
         update = False           
 
