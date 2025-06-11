@@ -69,7 +69,7 @@ def main():
     print(new_distribution)
     print(new_assets_with_native)
 
-    change_threshold_allowance = 2.5 * wedx.get_distribution_threshold()
+    change_threshold_allowance = 1.5 * wedx.get_distribution_threshold()
 
     update = wedx.are_distributions_different(current_distro, current_assets, new_distribution, new_assets_with_native, change_threshold_allowance)
     print(f'Update needed: {update}')
