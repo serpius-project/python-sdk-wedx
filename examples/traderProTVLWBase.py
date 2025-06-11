@@ -25,7 +25,16 @@ wedx = WedX(CHAIN_ID, USER_ADDRESS, USER_PRIVATE_KEY, CHAIN_RPCS)
 
 def create_tvlw_portfolio():
     assets_info = wedx.get_assets_info()
-    assets_ew_portfolio_top_10_non_native = list(assets_info.keys())[:10]
+    assets_ew_portfolio_top_10_non_native = []
+    for key in assets_info.keys():
+        if assets_info[key]['inputTokens'][0]['symbol'] == 'WETH':
+            asset = assets_info[key]['inputTokens'][1]['symbol']
+        else:
+            asset = assets_info[key]['inputTokens'][0]['symbol']
+        if assets_info[key]['gtScore'] >= 75.0:
+            assets_ew_portfolio_top_10_non_native.append(asset)
+        if len(assets_ew_portfolio_top_10_non_native) == 10:
+            break
 
     tvls = []
     for asset in assets_ew_portfolio_top_10_non_native:

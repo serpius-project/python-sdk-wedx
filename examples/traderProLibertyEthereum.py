@@ -46,7 +46,7 @@ def get_liberty_portfolio():
                 asset = assets_info[key]['inputTokens'][1]['symbol']
             else:
                 asset = assets_info[key]['inputTokens'][0]['symbol']
-            if asset in portfolio.keys() and asset != 'TRX':
+            if asset in portfolio.keys() and asset != 'TRX' and assets_info[key]['gtScore'] >= 75.0:
                 assets_portfolio.append(wedx.w3.to_checksum_address(key))
                 distribution.append(portfolio[asset])
 
@@ -113,6 +113,9 @@ def main():
     print(f"Gas price is {gas_price}, permitted max. {w3.to_wei(1.5, 'gwei')}")
     if gas_price > w3.to_wei(1.5, 'gwei'):
         update = False           
+
+    print(f"My current slippage is {wedx.get_current_slippage()}")
+    wedx.change_slippage(1000000)
 
     if update:
         try:

@@ -178,6 +178,15 @@ Feel free to modify this script or create new ones to experiment with different 
 - Base Mainnet (Chain ID: 8453)
 - Arbitrum One Mainnet (Chain ID: 42161)
 
+## Fetching updates from public repo
+
+The SDK may face updates. Please do this to have always the most updated version:
+
+```
+git fetch upstream
+git merge upstream/main
+```
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request to the [WEDX SDK repository](https://github.com/serpius-project/python-sdk-wedx).
