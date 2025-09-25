@@ -95,17 +95,17 @@ def main():
         #     wedx.withdraw_from_lending(current_assets)
         # except ValueError as error:
         #     print(error)
-        # time.sleep(2)
+        # time.sleep(5)
         try:
             wedx.set_portfolio(new_assets, new_distribution)
         except ValueError as error:
             print(error)
-        time.sleep(2)
+        time.sleep(5)
         # try:
         #     wedx.earn_with_lending(new_assets)
         # except ValueError as error:
         #     print(error)
-        # time.sleep(2)
+        # time.sleep(5)
         try:
             trader_data = wedx.get_trader_data()
             required_interactions = wedx.get_required_interactions()
