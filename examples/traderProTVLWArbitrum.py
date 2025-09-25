@@ -31,7 +31,7 @@ def create_tvlw_portfolio():
             asset = assets_info[key]['inputTokens'][1]['id']
         else:
             asset = assets_info[key]['inputTokens'][0]['id']
-        if assets_info[key]['gtScore'] >= 75.0:
+        if assets_info[key]['gtScore'] >= 75.0 and assets_info[key]['totalValueLockedUSD'] >= 500_000 and assets_info[key]['whitelisted'] == True:
             assets_ew_portfolio_top_10_non_native.append(asset)
         if len(assets_ew_portfolio_top_10_non_native) == 10:
             break

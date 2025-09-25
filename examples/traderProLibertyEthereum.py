@@ -46,7 +46,7 @@ def get_liberty_portfolio():
                 asset = assets_info[key]['inputTokens'][1]['symbol']
             else:
                 asset = assets_info[key]['inputTokens'][0]['symbol']
-            if asset in portfolio.keys() and asset != 'TRX' and assets_info[key]['gtScore'] >= 75.0:
+            if asset in portfolio.keys() and asset != 'TRX' and assets_info[key]['gtScore'] >= 75.0 and assets_info[key]['totalValueLockedUSD'] >= 500_000 and assets_info[key]['whitelisted'] == True:
                 assets_portfolio.append(wedx.w3.to_checksum_address(key))
                 distribution.append(portfolio[asset])
 
