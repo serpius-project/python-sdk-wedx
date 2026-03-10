@@ -110,8 +110,8 @@ def main():
 
     w3 = Web3(Web3.HTTPProvider(CHAIN_RPCS[1]))
     gas_price = w3.eth.gas_price
-    print(f"Gas price is {gas_price}, permitted max. {w3.to_wei(1.6, 'gwei')}")
-    if gas_price > w3.to_wei(1.6, 'gwei'):
+    print(f"Gas price is {gas_price}, permitted max. {w3.to_wei(0.3, 'gwei')}")
+    if gas_price > w3.to_wei(0.3, 'gwei'):
         update = False           
 
     print(f"My current slippage is {wedx.get_current_slippage()}")
