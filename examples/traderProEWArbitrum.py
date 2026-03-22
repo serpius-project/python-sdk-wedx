@@ -27,14 +27,15 @@ def create_ew_portfolio():
     assets_info = wedx.get_assets_info()
     assets_ew_portfolio_top_10_non_native = []
     for key in assets_info.keys():
-        if assets_info[key]['inputTokens'][0]['symbol'] == 'WETH':
-            asset = assets_info[key]['inputTokens'][1]['id']
-        else:
-            asset = assets_info[key]['inputTokens'][0]['id']
-        if assets_info[key]['gtScore'] >= 75.0 and assets_info[key]['totalValueLockedUSD'] >= 500_000 and assets_info[key]['whitelisted'] == True and len(assets_info[key]['websites']) > 0:
-            assets_ew_portfolio_top_10_non_native.append(asset)
-        if len(assets_ew_portfolio_top_10_non_native) == 10:
-            break
+        if 'inputTokens' in assets_info[key].keys():
+            if assets_info[key]['inputTokens'][0]['symbol'] == 'WETH':
+                asset = assets_info[key]['inputTokens'][1]['id']
+            else:
+                asset = assets_info[key]['inputTokens'][0]['id']
+            if assets_info[key]['gtScore'] >= 75.0 and assets_info[key]['totalValueLockedUSD'] >= 500_000 and assets_info[key]['whitelisted'] == True and len(assets_info[key]['websites']) > 0:
+                assets_ew_portfolio_top_10_non_native.append(asset)
+            if len(assets_ew_portfolio_top_10_non_native) == 10:
+                break
 
     for a in range(len(assets_ew_portfolio_top_10_non_native)):
         assets_ew_portfolio_top_10_non_native[a] = wedx.w3.to_checksum_address(assets_ew_portfolio_top_10_non_native[a])
