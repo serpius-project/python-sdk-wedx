@@ -193,11 +193,12 @@ class WedX:
         return tx_receipt
 
     def get_assets_info(self):
-        url = 'https://app.wedefin.com/exchange_data.json'
+        chain_name = self.get_chain_name()
+        url = f'https://app.wedefin.com/exchange_data_{chain_name}.json'
         try:
             response = requests.get(url)
             response.raise_for_status()
-            return response.json()[self.get_chain_name()]
+            return response.json()
         except requests.RequestException as e:
             print(f"An error occurred while fetching the JSON: {e}")
             return None
